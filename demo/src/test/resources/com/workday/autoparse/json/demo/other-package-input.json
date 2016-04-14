@@ -1,0 +1,6 @@
+{
+  "object": "thisPackageModel",
+  "otherPackageModel": {
+    "object": "otherPackageModel"
+  }
+}

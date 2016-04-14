@@ -1,0 +1,7 @@
+{
+  "child": {
+    "object": "simpleTestObject",
+    "myString": "a test object"
+  },
+  "object": "wildcard"
+}

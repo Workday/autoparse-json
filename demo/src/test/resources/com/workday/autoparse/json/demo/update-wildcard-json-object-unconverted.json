@@ -1,0 +1,7 @@
+{
+  "object": "update",
+  "unconvertedChild": {
+    "object": "simpleTestObject",
+    "myString": "Moria"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "object": "update",
+  "myJsonObjectCollection": [
+    {
+      "k0": "v0"
+    },
+    {
+      "k1": "v1"
+    }
+  ]
+}

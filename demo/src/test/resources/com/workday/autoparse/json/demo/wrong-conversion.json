@@ -1,0 +1,6 @@
+{
+  "object": "testObject",
+  "mySingularChildByInterface": {
+    "string": "a string"
+  }
+}

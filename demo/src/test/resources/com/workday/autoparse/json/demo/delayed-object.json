@@ -1,0 +1,224 @@
+{
+  "myBoolean": true,
+  "myByte": 65,
+  "myChar": "c",
+  "myDouble": "12.34",
+  "myFloat": 123.45,
+  "myInt": 12,
+  "myLong": 123456,
+  "myShort": 17,
+  "myBoxedBoolean": true,
+  "myBoxedByte": 63,
+  "myBoxedChar": "d",
+  "myBoxedDouble": "12.345",
+  "myBoxedFloat": 123.456,
+  "myBoxedInt": 123,
+  "myBoxedLong": 1234567,
+  "myBoxedShort": 18,
+  "myString": "hello",
+  "myBigDecimal": "123456789.0123456789",
+  "myBigInteger": "1234567891011",
+  "overriddenThing": 123,
+  "myStringMap": {
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "myStringMap": {
+    "key1": "value1",
+    "key2": "value2"
+  },
+  "myTestObjectMap": {
+    "key1": {
+      "myString": "string 1"
+    },
+    "key2": {
+      "myString": "string 2"
+    }
+  },
+  "myInterfaceMap": {
+    "key1": {
+      "object": "innerTestObject",
+      "string": "string 1"
+    },
+    "key2": {
+      "object": "innerTestObject",
+      "string": "string 2"
+    }
+  },
+  "myObjectMap": {
+    "key1": {
+      "object": "simpleTestObject",
+      "myString": "string 1"
+    },
+    "key2": 25
+  },
+  "myBooleanCollection": [
+    true,
+    false,
+    true
+  ],
+  "myByteCollection": [
+    63,
+    64
+  ],
+  "myCharCollection": [
+    "d",
+    "e"
+  ],
+  "myDoubleCollection": [
+    "12.345",
+    13.345
+  ],
+  "myFloatCollection": [
+    123.456,
+    234.56
+  ],
+  "myIntCollection": [
+    123,
+    456
+  ],
+  "myLongCollection": [
+    1234567,
+    2345678
+  ],
+  "myShortCollection": [
+    18,
+    19
+  ],
+  "myStringCollection": [
+    "hello",
+    "there"
+  ],
+  "myBigDecimalCollection": [
+    "123456789.0123456789",
+    "23456789.0123456789"
+  ],
+  "myBigIntegerCollection": [
+    "1234567891011",
+    "234567891011"
+  ],
+  "myList": [
+    {
+      "object": "testObject",
+      "myString": "list child 0"
+    },
+    {
+      "object": "testObject",
+      "myString": "list child 1"
+    }
+  ],
+  "myListByInterface": [
+    {
+      "object": "innerTestObject",
+      "string": "object 0"
+    },
+    {
+      "object": "innerTestObject",
+      "string": "object 1"
+    }
+  ],
+  "mySingularChild": {
+    "object": "testObject",
+    "myString": "a singular child"
+  },
+  "mySingularChildByInterface": {
+    "object": "innerTestObject",
+    "string": "an object"
+  },
+  "myInnerObject": {
+    "string": "an InnerTestObject"
+  },
+  "myCollectionOfCollections": [
+    [
+      1,
+      2
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "myCollectionOfSetsOfTestObjects": [
+    [
+      {
+        "object": "simpleTestObject",
+        "myString": "set 0 child 0"
+      },
+      {
+        "object": "simpleTestObject",
+        "myString": "set 0 child 1"
+      }
+    ],
+    [
+      {
+        "object": "simpleTestObject",
+        "myString": "set 1 child 0"
+      },
+      {
+        "object": "simpleTestObject",
+        "myString": "set 1 child 1"
+      }
+    ]
+  ],
+  "myUnannotatedObject": {
+    "string": "singular unannotated object"
+  },
+  "myUnannotatedObjectCollection": [
+    {
+      "string": "unannotated item 0"
+    },
+    {
+      "string": "unannotated item 1"
+    }
+  ],
+  "unmappedName": "unmappedValue",
+  "myJsonObject": {
+    "name": "value"
+  },
+  "myJsonArray": [
+    {
+      "name 0": "value 0"
+    },
+    {
+      "name 1": "value 1"
+    }
+  ],
+  "myJsonObjectCollection": [
+    {
+      "list name 0": "list value 0"
+    },
+    {
+      "list name 1": "list value 1"
+    }
+  ],
+  "stringSetter": "string for setter",
+  "unannotatedObjectSetter": {
+    "string": "unannotated object for setter"
+  },
+  "collectionSetter": [
+    {
+      "string": "object for list setter 0"
+    },
+    {
+      "string": "object for list setter 1"
+    }
+  ],
+  "collectionOfCollectionsSetter": [
+    [
+      1,
+      2
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "myEmptyObject": {},
+  "myEmptyCollection": [],
+  "myNullInt": null,
+  "myNullString": null,
+  "myNullObject": null,
+  "myNullCollection": null,
+  "myDefaultCollection": null,
+  "object": "testObject"
+}

@@ -1,0 +1,13 @@
+{
+  "object": "update",
+  "unconvertedChild": [
+    {
+      "object": "simpleTestObject",
+      "myString": "Buckland"
+    },
+    {
+      "object": "testObject",
+      "myString": "The Shire"
+    }
+  ]
+}

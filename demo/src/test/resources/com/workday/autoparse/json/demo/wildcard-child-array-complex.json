@@ -1,0 +1,18 @@
+{
+  "object": "wildcard",
+  "child": [
+    {
+      "object": "simpleTestObject",
+      "myString": "test object 0"
+    },
+    "a string",
+    123,
+    true,
+    [
+      "another string"
+    ],
+    {
+      "string": "an unknown object"
+    }
+  ]
+}

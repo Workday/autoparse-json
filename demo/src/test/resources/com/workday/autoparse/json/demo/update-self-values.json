@@ -1,0 +1,9 @@
+{
+  "object": "update",
+  "string": "b",
+  "key1": "value 1 updated",
+  "key3": {
+    "myString": "simple string",
+    "object": "simpleTestObject"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "myInterfaceMap": {
+    "key1": {
+      "object": "innerTestObject",
+      "string": "string 1"
+    },
+    "key2": "a string"
+  },
+  "object": "testObject"
+}

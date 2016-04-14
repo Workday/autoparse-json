@@ -1,0 +1,22 @@
+{
+  "object": "testObject",
+  "myListByInterface": [
+    {
+      "string": "object 0"
+    },
+    {
+      "string": "object 1"
+    }
+  ],
+  "mySingularChildByInterface": {
+    "string": "a singular unknown"
+  },
+  "myInterfaceMap": {
+    "key1": {
+      "string": "string 1"
+    },
+    "key2": {
+      "string": "string 2"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "object": "update",
+  "myJsonArray": [
+    "one",
+    2,
+    {
+      "string": "3"
+    }
+  ]
+}

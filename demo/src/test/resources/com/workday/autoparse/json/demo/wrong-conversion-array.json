@@ -1,0 +1,12 @@
+{
+  "object": "testObject",
+  "myListByInterface": [
+    {
+      "object": "innerTestObject",
+      "string": "my string value"
+    },
+    {
+      "string": "a string"
+    }
+  ]
+}

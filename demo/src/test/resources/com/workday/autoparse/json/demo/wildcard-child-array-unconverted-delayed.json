@@ -1,0 +1,10 @@
+{
+  "unconvertedChild": [
+    "a string",
+    {
+      "object": "simpleTestObject",
+      "myString": "a test object"
+    }
+  ],
+  "object": "wildcard"
+}

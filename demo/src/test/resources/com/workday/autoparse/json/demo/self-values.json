@@ -1,0 +1,13 @@
+{
+  "object": "selfMap",
+  "string": "a string value",
+  "string2": "another string",
+  "int": 5,
+  "simpleTestObject": {
+    "object": "simpleTestObject",
+    "myString": "simple string"
+  },
+  "jsonObject": {
+    "name": "bob"
+  }
+}

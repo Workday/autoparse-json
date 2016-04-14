@@ -1,0 +1,14 @@
+{
+  "object": "testObject",
+  "myList": [
+    {
+      "myString": "first"
+    },
+    {
+      "myString": "second"
+    }
+  ],
+  "mySingularChild": {
+    "myString": "a singular child"
+  }
+}

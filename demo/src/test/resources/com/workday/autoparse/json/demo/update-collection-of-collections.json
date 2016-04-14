@@ -1,0 +1,10 @@
+{
+  "object": "update",
+  "myCollectionOfSetsOfTestObjects": [
+    [
+      {
+        "myString": "original"
+      }
+    ]
+  ]
+}

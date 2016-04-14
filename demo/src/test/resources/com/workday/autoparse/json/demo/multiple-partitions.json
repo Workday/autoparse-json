@@ -1,0 +1,13 @@
+{
+  "object": "rootPartitionedModel",
+  "thisPackageModel": {
+    "object": "thisPackageModel",
+    "otherPackageModel": {
+      "object": "otherPackageModel"
+    }
+  },
+  "partitionedModel": {
+    "object": "partitionedModel",
+    "string": "a string"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "object": "update",
+  "child": [
+    {
+      "object": "simpleTestObject",
+      "myString": "Rivendell"
+    },
+    {
+      "object": "testObject",
+      "myString": "Mirkwood"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "object": "update",
+  "child": {
+    "object": "simpleTestObject",
+    "myString": "Misty Mountains"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "object": "wildcard",
+  "child": [
+    {
+      "object": "simpleTestObject",
+      "myString": "test object 0"
+    },
+    {
+      "object": "simpleTestObject",
+      "myString": "test object 1"
+    }
+  ]
+}

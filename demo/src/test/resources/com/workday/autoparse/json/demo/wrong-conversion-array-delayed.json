@@ -1,0 +1,11 @@
+{
+  "myListByInterface": [
+    {
+      "myString": "my string value"
+    },
+    {
+      "myString": "a string"
+    }
+  ],
+  "object": "testObject"
+}

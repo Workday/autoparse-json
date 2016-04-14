@@ -1,0 +1,6 @@
+{
+  "testObject": {
+    "object": "testObject",
+    "myString": "a string value"
+  }
+}
