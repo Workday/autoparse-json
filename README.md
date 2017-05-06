@@ -2,6 +2,8 @@
 
 Autoparse JSON is a java library built specifically for Android that uses code generation to parse JSON into custom objects in your project.
 
+Learn how to use Autoparse JSON in the [wiki](https://github.com/workday/autoparse-json/wiki)!
+
 **Latest Version:**  [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.workday/autoparse-json/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.workday/autoparse-json)
 
 **Build Status:** [![Circle CI](https://circleci.com/gh/Workday/autoparse-json.svg?style=svg)](https://circleci.com/gh/Workday/autoparse-json)
