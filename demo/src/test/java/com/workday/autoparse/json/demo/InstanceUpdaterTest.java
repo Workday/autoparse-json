@@ -8,8 +8,12 @@
 package com.workday.autoparse.json.demo;
 
 import com.workday.autoparse.json.utils.CollectionUtils;
+import java.util.Arrays;
+import java.util.Collection;
+import org.hamcrest.CoreMatchers;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -26,6 +30,7 @@ import java.util.Map;
 import static com.workday.autoparse.json.demo.InstanceUpdaterTestUtils.CONTEXT;
 import static com.workday.autoparse.json.demo.InstanceUpdaterTestUtils.getUpdateMapFromFile;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -351,6 +356,19 @@ public class InstanceUpdaterTest {
         assertEquals("one", testObject.myJsonArray.optString(0));
         assertEquals(2, testObject.myJsonArray.optInt(1));
         assertTrue("myJsonArray[2] instanceof JSONObject", testObject.myJsonArray.opt(2) instanceof JSONObject);
+    }
+
+    @Test
+    public void testCollectionWithNullValueUpdate() throws Exception {
+        TestObject testObject = new TestObject();
+        testObject.myCollectionWithNullValues = Arrays.asList("test", null, "null");;
+
+        Map<String, Object> updates = getUpdateMapFromFile("update-json-array-with-nulls.json");
+        
+        TestObject$$JsonObjectParser.INSTANCE.updateInstanceFromMap(testObject, updates, CONTEXT);
+
+        Collection<String> expected = Arrays.asList("one", null, "null");
+        Assert.assertThat(testObject.myCollectionWithNullValues, CoreMatchers.is(expected));
     }
 
     @Test(expected = RuntimeException.class)
