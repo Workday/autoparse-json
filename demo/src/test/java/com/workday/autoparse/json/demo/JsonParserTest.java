@@ -260,6 +260,9 @@ public class JsonParserTest {
         assertNull("testObject.myNullCollection", testObject.myNullCollection);
         assertEquals("testObject.myDefaultCollection", Collections.singleton("the one"),
                      testObject.myDefaultCollection);
+        final Collection<String> collectionWithSingleNull = new ArrayList<>();
+        collectionWithSingleNull.add(null);
+        assertThat(testObject.myCollectionWithSingleNullValue, is(collectionWithSingleNull));
         final Collection<String> collectionWithNullValues = new ArrayList<>();
         collectionWithNullValues.add(null);
         collectionWithNullValues.add("string");

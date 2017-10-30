@@ -175,6 +175,8 @@ public class TestObject extends AbstractTestObject {
     public Collection<String> myNullCollection;
     @JsonValue("myDefaultCollection")
     public Collection<String> myDefaultCollection = Collections.singleton("the one");
+    @JsonValue("myCollectionWithSingleNullValue")
+    public Collection<String> myCollectionWithSingleNullValue;
     @JsonValue("myCollectionWithNullValues")
     public Collection<String> myCollectionWithNullValues;
 
