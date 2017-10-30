@@ -11,7 +11,11 @@ import com.workday.autoparse.json.context.JsonParserSettingsBuilder;
 import com.workday.autoparse.json.parser.JsonStreamParser;
 import com.workday.autoparse.json.parser.JsonStreamParserFactory;
 import com.workday.autoparse.json.utils.CollectionUtils;
+import java.util.ArrayList;
+import java.util.Collection;
+import org.hamcrest.CoreMatchers;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -254,6 +258,12 @@ public class JsonParserTest {
         assertNull("testObject.myNullCollection", testObject.myNullCollection);
         assertEquals("testObject.myDefaultCollection", Collections.singleton("the one"),
                      testObject.myDefaultCollection);
+        final Collection<String> collectionWithNullValues = new ArrayList<>();
+        collectionWithNullValues.add(null);
+        collectionWithNullValues.add("string");
+        collectionWithNullValues.add(null);
+        collectionWithNullValues.add("null");
+        Assert.assertThat(testObject.myCollectionWithNullValues, CoreMatchers.is(collectionWithNullValues));
     }
 
     @Test

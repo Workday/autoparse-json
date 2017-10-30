@@ -727,6 +727,8 @@ public class JsonParserUtils {
                 @SuppressWarnings("unchecked")
                 T toAdd = (T) nextValue;
                 collection.add(toAdd);
+            } else if (nextToken == JsonToken.NULL) {
+                collection.add(null);
             } else {
                 throw new IllegalStateException(
                         String.format(Locale.US,
@@ -929,6 +931,9 @@ public class JsonParserUtils {
                 @SuppressWarnings("unchecked")
                 T castItem = (T) o;
                 parsedItem = castItem;
+            } else if (o == null) {
+                collection.add(null);
+                continue;
             } else if (o instanceof JSONObject) {
                 parsedItem = convertJsonObject((JSONObject) o, typeClass, itemParser, context);
             } else if (o instanceof String && converter != null) {

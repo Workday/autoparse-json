@@ -220,5 +220,6 @@
   "myNullString": null,
   "myNullObject": null,
   "myNullCollection": null,
-  "myDefaultCollection": null
+  "myDefaultCollection": null,
+  "myCollectionWithNullValues": [null, "string", null, "null"]
 }
