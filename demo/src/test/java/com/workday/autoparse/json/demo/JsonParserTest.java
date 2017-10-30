@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Set;
 
 import static junit.framework.Assert.assertNull;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -263,7 +265,7 @@ public class JsonParserTest {
         collectionWithNullValues.add("string");
         collectionWithNullValues.add(null);
         collectionWithNullValues.add("null");
-        Assert.assertThat(testObject.myCollectionWithNullValues, CoreMatchers.is(collectionWithNullValues));
+        assertThat(testObject.myCollectionWithNullValues, is(collectionWithNullValues));
     }
 
     @Test
