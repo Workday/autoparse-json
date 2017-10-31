@@ -931,11 +931,12 @@ public class JsonParserUtils {
                 @SuppressWarnings("unchecked")
                 T castItem = (T) o;
                 parsedItem = castItem;
-            }  else if (o instanceof JSONObject) {
+            } else if (o instanceof JSONObject) {
                 parsedItem = convertJsonObject((JSONObject) o, typeClass, itemParser, context);
             } else if (o instanceof String && converter != null) {
                 parsedItem = converter.convert((String) o);
-            } else if (o == null) { //The parsed array has an explicit null, so add a null to the collection
+            } else if (o == null) {
+                //The parsed array has an explicit null, so add a null to the collection.
                 collection.add(null);
                 continue;
             }

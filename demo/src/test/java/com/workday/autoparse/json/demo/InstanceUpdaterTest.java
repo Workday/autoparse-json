@@ -11,7 +11,6 @@ import com.workday.autoparse.json.utils.CollectionUtils;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -356,7 +355,7 @@ public class InstanceUpdaterTest {
     @Test
     public void testCollectionWithNullValueUpdate() throws Exception {
         TestObject testObject = new TestObject();
-        testObject.myCollectionWithNullValues = Arrays.asList("test", null, "null");;
+        testObject.myCollectionWithNullValues = CollectionUtils.newArrayList("one", null, "null");
 
         Map<String, Object> updates = getUpdateMapFromFile("update-json-array-with-nulls.json");
 
