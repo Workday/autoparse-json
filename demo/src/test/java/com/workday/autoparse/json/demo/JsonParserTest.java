@@ -11,30 +11,25 @@ import com.workday.autoparse.json.context.JsonParserSettingsBuilder;
 import com.workday.autoparse.json.parser.JsonStreamParser;
 import com.workday.autoparse.json.parser.JsonStreamParserFactory;
 import com.workday.autoparse.json.utils.CollectionUtils;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.hamcrest.CoreMatchers;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
 import static junit.framework.Assert.assertNull;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -260,15 +255,11 @@ public class JsonParserTest {
         assertNull("testObject.myNullCollection", testObject.myNullCollection);
         assertEquals("testObject.myDefaultCollection", Collections.singleton("the one"),
                      testObject.myDefaultCollection);
-        final Collection<String> collectionWithSingleNull = new ArrayList<>();
-        collectionWithSingleNull.add(null);
-        assertThat(testObject.myCollectionWithSingleNullValue, is(collectionWithSingleNull));
-        final Collection<String> collectionWithNullValues = new ArrayList<>();
-        collectionWithNullValues.add(null);
-        collectionWithNullValues.add("string");
-        collectionWithNullValues.add(null);
-        collectionWithNullValues.add("null");
-        assertThat(testObject.myCollectionWithNullValues, is(collectionWithNullValues));
+
+        Collection<String> expected = new ArrayList<>();
+        expected.add(null);
+        assertEquals(expected, testObject.myCollectionWithSingleNullValue);
+        assertEquals(CollectionUtils.newArrayList(null, "string", null, "null"), testObject.myCollectionWithNullValues);
     }
 
     @Test

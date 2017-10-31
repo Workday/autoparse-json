@@ -8,29 +8,24 @@
 package com.workday.autoparse.json.demo;
 
 import com.workday.autoparse.json.utils.CollectionUtils;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import org.hamcrest.CoreMatchers;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import static com.workday.autoparse.json.demo.InstanceUpdaterTestUtils.CONTEXT;
 import static com.workday.autoparse.json.demo.InstanceUpdaterTestUtils.getUpdateMapFromFile;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -364,11 +359,10 @@ public class InstanceUpdaterTest {
         testObject.myCollectionWithNullValues = Arrays.asList("test", null, "null");;
 
         Map<String, Object> updates = getUpdateMapFromFile("update-json-array-with-nulls.json");
-        
+
         TestObject$$JsonObjectParser.INSTANCE.updateInstanceFromMap(testObject, updates, CONTEXT);
 
-        Collection<String> expected = Arrays.asList("one", null, "null");
-        Assert.assertThat(testObject.myCollectionWithNullValues, CoreMatchers.is(expected));
+        assertEquals(testObject.myCollectionWithNullValues, CollectionUtils.newArrayList("one", null, "null"));
     }
 
     @Test(expected = RuntimeException.class)
