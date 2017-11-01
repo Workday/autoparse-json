@@ -1,0 +1,8 @@
+{
+  "object": "update",
+  "myCollectionWithNullValues": [
+    "one",
+    null,
+    "null"
+  ]
+}

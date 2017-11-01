@@ -11,22 +11,23 @@ import com.workday.autoparse.json.context.JsonParserSettingsBuilder;
 import com.workday.autoparse.json.parser.JsonStreamParser;
 import com.workday.autoparse.json.parser.JsonStreamParserFactory;
 import com.workday.autoparse.json.utils.CollectionUtils;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
 
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
@@ -254,6 +255,11 @@ public class JsonParserTest {
         assertNull("testObject.myNullCollection", testObject.myNullCollection);
         assertEquals("testObject.myDefaultCollection", Collections.singleton("the one"),
                      testObject.myDefaultCollection);
+
+        Collection<String> expected = new ArrayList<>();
+        expected.add(null);
+        assertEquals(expected, testObject.myCollectionWithSingleNullValue);
+        assertEquals(CollectionUtils.newArrayList(null, "string", null, "null"), testObject.myCollectionWithNullValues);
     }
 
     @Test

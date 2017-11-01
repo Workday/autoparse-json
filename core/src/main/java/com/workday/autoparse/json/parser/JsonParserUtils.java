@@ -727,6 +727,8 @@ public class JsonParserUtils {
                 @SuppressWarnings("unchecked")
                 T toAdd = (T) nextValue;
                 collection.add(toAdd);
+            } else if (nextToken == JsonToken.NULL) {
+                collection.add(null);
             } else {
                 throw new IllegalStateException(
                         String.format(Locale.US,
@@ -933,6 +935,10 @@ public class JsonParserUtils {
                 parsedItem = convertJsonObject((JSONObject) o, typeClass, itemParser, context);
             } else if (o instanceof String && converter != null) {
                 parsedItem = converter.convert((String) o);
+            } else if (o == null) {
+                //The parsed array has an explicit null, so add a null to the collection.
+                collection.add(null);
+                continue;
             }
 
             if (parsedItem != null) {

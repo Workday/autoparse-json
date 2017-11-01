@@ -8,13 +8,6 @@
 package com.workday.autoparse.json.demo;
 
 import com.workday.autoparse.json.utils.CollectionUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -22,6 +15,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static com.workday.autoparse.json.demo.InstanceUpdaterTestUtils.CONTEXT;
 import static com.workday.autoparse.json.demo.InstanceUpdaterTestUtils.getUpdateMapFromFile;
@@ -351,6 +350,18 @@ public class InstanceUpdaterTest {
         assertEquals("one", testObject.myJsonArray.optString(0));
         assertEquals(2, testObject.myJsonArray.optInt(1));
         assertTrue("myJsonArray[2] instanceof JSONObject", testObject.myJsonArray.opt(2) instanceof JSONObject);
+    }
+
+    @Test
+    public void testCollectionWithNullValueUpdate() throws Exception {
+        TestObject testObject = new TestObject();
+        testObject.myCollectionWithNullValues = CollectionUtils.newArrayList("one", null, "null");
+
+        Map<String, Object> updates = getUpdateMapFromFile("update-json-array-with-nulls.json");
+
+        TestObject$$JsonObjectParser.INSTANCE.updateInstanceFromMap(testObject, updates, CONTEXT);
+
+        assertEquals(testObject.myCollectionWithNullValues, CollectionUtils.newArrayList("one", null, "null"));
     }
 
     @Test(expected = RuntimeException.class)
