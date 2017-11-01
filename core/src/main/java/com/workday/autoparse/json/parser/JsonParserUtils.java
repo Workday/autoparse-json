@@ -173,11 +173,13 @@ public class JsonParserUtils {
                 reader.endObject();
             } else {
                 Object o = parseNextValue(reader, true);
-                if (!valueClass.isInstance(o)) {
+                if (o == null) {
+                    map.put(name, null);
+                    continue;
+                } else if (!valueClass.isInstance(o)) {
                     throwMapException(name, key, valueClass, o);
                 }
                 value = cast(o);
-
             }
             map.put(name, value);
         }

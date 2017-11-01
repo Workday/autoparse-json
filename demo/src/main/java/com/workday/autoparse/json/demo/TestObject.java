@@ -186,7 +186,7 @@ public class TestObject extends AbstractTestObject {
     @JsonValue("myStringMapWithNullValues")
     public Map<String, String> myStringMapWithNullValues;
     @JsonValue("myObjectMapWithNullValues")
-    public Map<String, String> myObjectMapWithNullValues;
+    public Map<String, SimpleTestObject> myObjectMapWithNullValues;
 
     // Fields for setters
     public String stringFromSetter;
