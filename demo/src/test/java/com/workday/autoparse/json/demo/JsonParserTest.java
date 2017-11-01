@@ -258,8 +258,30 @@ public class JsonParserTest {
 
         Collection<String> expected = new ArrayList<>();
         expected.add(null);
-        assertEquals(expected, testObject.myCollectionWithSingleNullValue);
-        assertEquals(CollectionUtils.newArrayList(null, "string", null, "null"), testObject.myCollectionWithNullValues);
+        assertEquals("testObject.myCollectionWithSingleNullValue", expected, testObject.myCollectionWithSingleNullValue);
+        assertEquals("testObject.myCollectionWithNullValues",
+                     CollectionUtils.newArrayList(null, "string", null, "null"), testObject.myCollectionWithNullValues);
+    }
+
+    @Test
+    public void testNullValueInMap() throws Exception {
+        TestObject testObject = (TestObject) parser.parseJsonStream(getInputStream("single-object.json"));
+
+        assertNotNull("testObject.myStringMapWithSingleNullValue", testObject.myStringMapWithSingleNullValue);
+        assertEquals("testObject.myStringMapWithSingleNullValue.size", 1, testObject.myStringMapWithSingleNullValue.size());
+        assertEquals("testObject.myStringMapWithSingleNullValue[key1]", null, testObject.myStringMapWithSingleNullValue.get("key1"));
+
+        assertNotNull("testObject.myStringMapWithNullValues", testObject.myStringMapWithNullValues);
+        assertEquals("testObject.myStringMapWithNullValues.size", 1, testObject.myStringMapWithNullValues.size());
+        assertEquals("testObject.myStringMapWithNullValues[key1]", null, testObject.myStringMapWithNullValues.get("key1"));
+        assertEquals("testObject.myStringMapWithNullValues[key2]", "value2", testObject.myStringMapWithNullValues.get("key1"));
+        assertEquals("testObject.myStringMapWithNullValues[key3]", "null", testObject.myStringMapWithNullValues.get("key1"));
+
+        assertNotNull("testObject.myObjectMapWithNullValues", testObject.myObjectMapWithNullValues);
+        assertEquals("testObject.myObjectMapWithNullValues.size", 1, testObject.myObjectMapWithNullValues.size());
+        assertEquals("testObject.myObjectMapWithNullValues[key1]", new SimpleTestObject(null), testObject.myObjectMapWithNullValues.get("key1"));
+        assertEquals("testObject.myObjectMapWithNullValues[key2]", new SimpleTestObject("post-parse:value2"), testObject.myObjectMapWithNullValues.get("key2"));
+        assertEquals("testObject.myObjectMapWithNullValues[key3]", new SimpleTestObject("post-parse:null"), testObject.myObjectMapWithNullValues.get("key3"));
     }
 
     @Test
