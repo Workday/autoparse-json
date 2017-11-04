@@ -289,6 +289,9 @@ public class JsonParserUtils {
                                            parserTable);
             } else if (valueClass.isInstance(o)) {
                 result = cast(o);
+            } else if (o == JSONObject.NULL) {
+                map.put(name, null);
+                continue;
             }
 
             if (result != null) {
