@@ -104,8 +104,7 @@ public class JsonParserUtils {
                 return reader.nextString();
             case NULL:
                 reader.nextNull();
-                return null;
-
+                return JSONObject.NULL;
             default:
                 throw new IllegalStateException("Unexpected token: " + nextToken);
         }
@@ -173,7 +172,7 @@ public class JsonParserUtils {
                 reader.endObject();
             } else {
                 Object o = parseNextValue(reader, true);
-                if (o == null) {
+                if (o == JSONObject.NULL) {
                     map.put(name, null);
                     continue;
                 } else if (!valueClass.isInstance(o)) {
