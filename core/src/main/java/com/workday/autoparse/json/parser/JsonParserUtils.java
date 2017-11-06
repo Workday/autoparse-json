@@ -104,7 +104,7 @@ public class JsonParserUtils {
                 return reader.nextString();
             case NULL:
                 reader.nextNull();
-                return JSONObject.NULL;
+                return null;
             default:
                 throw new IllegalStateException("Unexpected token: " + nextToken);
         }
@@ -129,7 +129,12 @@ public class JsonParserUtils {
         reader.beginObject();
         while (reader.hasNext()) {
             try {
-                result.put(reader.nextName(), parseNextValue(reader, false));
+                String name = reader.nextName();
+                Object value = parseNextValue(reader, false);
+                if (value == null) {
+                    value = JSONObject.NULL;
+                }
+                result.put(name, value);
             } catch (JSONException e) {
                 throw new RuntimeException("This should be impossible.", e);
             }
@@ -172,7 +177,7 @@ public class JsonParserUtils {
                 reader.endObject();
             } else {
                 Object o = parseNextValue(reader, true);
-                if (o == JSONObject.NULL) {
+                if (o == null) {
                     map.put(name, null);
                     continue;
                 } else if (!valueClass.isInstance(o)) {
@@ -637,6 +642,9 @@ public class JsonParserUtils {
 
             // No matching parser has been found yet; save the current name and value to the
             // jsonObject.
+            if (value == null) {
+                value = JSONObject.NULL;
+            }
             try {
                 jsonObject.put(name, value);
             } catch (JSONException e) {
