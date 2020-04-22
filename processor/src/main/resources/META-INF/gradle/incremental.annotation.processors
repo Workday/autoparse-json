@@ -1,0 +1,2 @@
+com.workday.autoparse.json.codegen.AutoparseJsonProcessor,isolating
+com.workday.autoparse.json.codegen.JsonObjectParserMapProcessor,aggregating

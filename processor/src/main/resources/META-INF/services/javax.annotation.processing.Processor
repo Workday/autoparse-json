@@ -1,1 +1,2 @@
 com.workday.autoparse.json.codegen.AutoparseJsonProcessor
+com.workday.autoparse.json.codegen.JsonObjectParserMapProcessor
