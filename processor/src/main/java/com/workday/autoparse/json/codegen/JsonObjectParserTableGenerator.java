@@ -76,7 +76,8 @@ class JsonObjectParserTableGenerator {
         parserMap.putAll(discrimValueToClassRequiringGeneratedParserMap);
         parserMap.putAll(discrimValueToClassWithCustomParserMap);
 
-        JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(qualifiedClassName, parserMap.values().toArray(new Element[parserMap.size()]));
+        JavaFileObject sourceFile = processingEnv.getFiler()
+                .createSourceFile(qualifiedClassName, parserMap.values().toArray(new Element[parserMap.size()]));
 
         JavaWriter writer = new JavaWriter(sourceFile.openWriter());
         writer.emitPackage(packageName);
@@ -126,7 +127,8 @@ class JsonObjectParserTableGenerator {
         for (Map.Entry<String, TypeElement> entry :
                 discrimValueToClassRequiringGeneratedParserMap.entrySet()) {
             String discriminationValue = entry.getKey();
-            String parserQualifiedName = MetaTypeNames.constructTypeName(entry.getValue(), GeneratedClassNames.PARSER_SUFFIX);
+            String parserQualifiedName = MetaTypeNames.constructTypeName(entry.getValue(),
+                    GeneratedClassNames.PARSER_SUFFIX);
             writer.emitStatement("MAP.put(\"%s\", %s.INSTANCE)",
                                  discriminationValue,
                                  parserQualifiedName);

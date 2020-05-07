@@ -57,7 +57,8 @@ public class JsonObjectParserMapProcessor extends AbstractProcessor {
             return false;
         }
 
-        Set<PackageElement> partitionPackageElementsInRound = ElementFilter.packagesIn(roundEnvironment.getElementsAnnotatedWith(JsonParserPartition.class));
+        Set<PackageElement> partitionPackageElementsInRound =
+                ElementFilter.packagesIn(roundEnvironment.getElementsAnnotatedWith(JsonParserPartition.class));
         if (!partitionPackageElementsInRound.isEmpty()) {
             partitionPackageElements.addAll(partitionPackageElementsInRound);
         }
