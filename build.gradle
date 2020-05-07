@@ -1,0 +1,21 @@
+buildscript {
+    apply from: file('dependencies.gradle')
+
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath deps.build.androidGradlePlugin
+    }
+}
+
+allprojects {
+    project ->
+        project.apply from: rootProject.file('dependencies.gradle')
+        repositories {
+            google()
+            jcenter()
+        }
+}

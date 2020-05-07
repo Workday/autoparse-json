@@ -1,0 +1,39 @@
+version: 0.3
+jobs:
+  build:
+    working_directory: ~/autoparse-json
+    parallelism: 1
+    shell: /bin/bash
+    docker:
+      - image: circleci/android:api-28
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "core/build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "core/build.gradle" }}
+      - run:
+          name: Build and Run Tests
+          command: ./gradlew build lint test
+      - store_artifacts:
+          path: core/build/libs
+          destination: apks
+      - store_artifacts:
+          path: demo/build/libs
+          destination: apks
+      - store_artifacts:
+          path: processor/build/libs
+          destination: apks
+      - store_test_results:
+          path: core/build/test-results
+      - store_test_results:
+          path: demo/build/test-results
+      - store_test_results:
+          path: processor/build/test-results

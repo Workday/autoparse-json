@@ -1,0 +1,49 @@
+def versions = [
+        androidGradlePluginVersion: '3.6.0',
+        robolectricVersion        : '4.0.2',
+        guavaVersion              : '18.0',
+        apacheCommonsVersion      : '3.3.2',
+]
+
+def buildConfig = [
+        compileSdkVersion: 28,
+        minSdkVersion    : 21,
+        targetSdkVersion : 28,
+        buildToolsVersion: '28.0.3',
+        javaVersion      : '1.8',
+]
+
+def build = [
+        androidGradlePlugin: "com.android.tools.build:gradle:${versions.androidGradlePluginVersion}",
+]
+
+def internal = [
+        core: ':core',
+]
+
+def external = [
+        guava        : "com.google.guava:guava:${versions.guavaVersion}",
+        apacheCommons: "org.apache.commons:commons-lang3:${versions.apacheCommonsVersion}",
+        metaJava     : 'com.workday:metajava:1.0',
+        javaWriter   : 'com.squareup:javawriter:2.5.0',
+]
+
+def test = [
+        junit      : 'junit:junit:4.12',
+        mockito    : 'org.mockito:mockito-core:3.3.3',
+        assertCore : 'org.assertj:assertj-core:3.16.0',
+        robolectric: "org.robolectric:robolectric:${versions.robolectricVersion}",
+]
+
+def annotations = [
+        processor: ":processor"
+]
+
+ext.deps = [
+        "build"      : build,
+        "buildConfig": buildConfig,
+        "internal"   : internal,
+        "external"   : external,
+        "test"       : test,
+        "annotations": annotations,
+]
