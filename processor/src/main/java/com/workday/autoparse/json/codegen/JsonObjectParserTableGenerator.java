@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
@@ -71,7 +72,12 @@ class JsonObjectParserTableGenerator {
                                                                          GeneratedClassNames
                                                                                  .CLASS_JSON_OBJECT_PARSER_TABLE);
 
-        JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(qualifiedClassName);
+        Map<String, TypeElement> parserMap = new HashMap<>();
+        parserMap.putAll(discrimValueToClassRequiringGeneratedParserMap);
+        parserMap.putAll(discrimValueToClassWithCustomParserMap);
+
+        JavaFileObject sourceFile = processingEnv.getFiler()
+                .createSourceFile(qualifiedClassName, parserMap.values().toArray(new Element[parserMap.size()]));
 
         JavaWriter writer = new JavaWriter(sourceFile.openWriter());
         writer.emitPackage(packageName);
@@ -122,8 +128,7 @@ class JsonObjectParserTableGenerator {
                 discrimValueToClassRequiringGeneratedParserMap.entrySet()) {
             String discriminationValue = entry.getKey();
             String parserQualifiedName = MetaTypeNames.constructTypeName(entry.getValue(),
-                                                                         GeneratedClassNames
-                                                                                 .PARSER_SUFFIX);
+                    GeneratedClassNames.PARSER_SUFFIX);
             writer.emitStatement("MAP.put(\"%s\", %s.INSTANCE)",
                                  discriminationValue,
                                  parserQualifiedName);

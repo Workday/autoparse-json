@@ -50,7 +50,7 @@ import java.lang.annotation.Target;
  * @author nathan.taylor
  * @since 2015-02-27
  */
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.CLASS)
 @Target(ElementType.PACKAGE)
 public @interface JsonParserPartition {
 

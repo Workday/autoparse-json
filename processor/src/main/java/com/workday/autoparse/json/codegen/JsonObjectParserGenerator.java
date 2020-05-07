@@ -9,9 +9,11 @@ package com.workday.autoparse.json.codegen;
 
 import com.squareup.javawriter.JavaWriter;
 import com.workday.autoparse.json.annotations.DiscrimValue;
+import com.workday.autoparse.json.annotations.JsonObject;
 import com.workday.autoparse.json.annotations.JsonPostCreateChild;
 import com.workday.autoparse.json.annotations.JsonSelfValues;
 import com.workday.autoparse.json.annotations.JsonValue;
+import com.workday.autoparse.json.annotations.codegen.JsonParser;
 import com.workday.autoparse.json.context.ContextHolder;
 import com.workday.autoparse.json.context.GeneratedClassNames;
 import com.workday.autoparse.json.context.JsonParserContext;
@@ -40,6 +42,7 @@ import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -52,6 +55,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * Generates code for {@link JsonObjectParser}s.
@@ -142,13 +146,27 @@ class JsonObjectParserGenerator {
     public void generateParser() throws IOException {
         String parserName = MetaTypeNames.constructTypeName(classElement, GeneratedClassNames.PARSER_SUFFIX);
 
-        JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(parserName);
+        JavaFileObject sourceFile = processingEnv.getFiler().createSourceFile(parserName, classElement);
 
         JavaWriter writer = new JavaWriter(sourceFile.openWriter());
         writer.setIndent("    ");
         writer.emitPackage(processingEnv.getElementUtils().getPackageOf(classElement).getQualifiedName().toString());
         writer.emitImports(getStandardImports());
         writer.emitEmptyLine();
+
+        JsonObject jsonObject = classElement.getAnnotation(JsonObject.class);
+        if (jsonObject != null) {
+            Object[] values = Arrays
+                    .stream(jsonObject.value())
+                    .map(new Function<String, Object>() {
+                        @Override
+                        public Object apply(String data) {
+                            return JavaWriter.stringLiteral(data);
+                        }
+                    })
+                    .toArray();
+            writer.emitAnnotation("JsonParser", values);
+        }
 
         parsedClassName = writer.compressType(classElement.getQualifiedName().toString());
         String jsonObjectParserInterfaceName = JavaWriter.type(JsonObjectParser.class, parsedClassName);
@@ -209,6 +227,7 @@ class JsonObjectParserGenerator {
         results.add(IOException.class.getCanonicalName());
         results.add(Map.class.getCanonicalName());
         results.add(MapValueGetter.class.getCanonicalName());
+        results.add(JsonParser.class.getCanonicalName());
         return results;
     }
 
