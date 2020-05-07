@@ -1,46 +1,31 @@
-buildscript {
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    }
-}
-
 apply plugin: 'com.android.library'
-apply plugin: 'com.neenbedankt.android-apt'
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile 'org.apache.commons:commons-lang3:3.3.2'
-
-    compile project(':core')
-    apt project(':processor')
-
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:1.7.1'
-    testCompile 'org.robolectric:robolectric:3.0'
-}
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    compileSdkVersion deps.buildConfig.compileSdkVersion
+    buildToolsVersion deps.buildConfig.buildToolsVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_7
-        targetCompatibility = JavaVersion.VERSION_1_7
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion deps.buildConfig.minSdkVersion
+        targetSdkVersion deps.buildConfig.targetSdkVersion
 
+        multiDexEnabled true
     }
+}
 
+dependencies {
+    implementation deps.external.guava
+    implementation deps.external.apacheCommons
+
+    implementation project(deps.internal.core)
+    annotationProcessor project(deps.annotations.processor)
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.assertCore
+    testImplementation deps.test.robolectric
 }
