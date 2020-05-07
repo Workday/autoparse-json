@@ -9,6 +9,10 @@ jobs:
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
+      - steps:
+          - add_ssh_keys:
+              fingerprints:
+                - "b4:0a:f8:bf:42:92:2e:fe:96:08:d5:06:bd:bc:0c:a7"
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "core/build.gradle" }}
@@ -25,5 +29,15 @@ jobs:
       - store_artifacts:
           path: core/build/libs
           destination: apks
+      - store_artifacts:
+          path: demo/build/libs
+          destination: apks
+      - store_artifacts:
+          path: processor/build/libs
+          destination: apks
       - store_test_results:
           path: core/build/test-results
+      - store_test_results:
+          path: demo/build/test-results
+      - store_test_results:
+          path: processor/build/test-results
