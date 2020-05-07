@@ -1,33 +1,28 @@
-dependencies:
-    pre:
-        - echo y | android update sdk --no-ui --all --filter "tools,platform-tools,android-23"
-        - echo y | android update sdk --no-ui --all --filter "build-tools-23.0.2"
+version: 0.3
+jobs:
+    build:
+        working_directory: ~/code
+        docker:
+            - image: circleci/android:api-28
+        environment:
+            JVM_OPTS: -Xmx3200m
+        steps:
+            - checkout
+            - restore_cache:
+                  key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+            - run:
+                  name: Download Dependencies
+                  command: ./gradlew androidDependencies
+            - save_cache:
+                  paths:
+                      - ~/.gradle
+                  key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+            - run:
+                  name: Run Tests
+                  command: ./gradlew build lint test
+            - store_artifacts:
+                  path: app/build/reports
+                  destination: reports
+            - store_test_results:
+                  path: app/build/test-results
 
-test:
-    override:
-        - ./gradlew build
-    post:
-        - mkdir -p $CIRCLE_TEST_REPORTS/xml-reports/core $CIRCLE_TEST_REPORTS/xml-reports/processor
-        - mkdir -p $CIRCLE_TEST_REPORTS/xml-reports/demo/debug $CIRCLE_TEST_REPORTS/xml-reports/demo/release
-        - mkdir -p $CIRCLE_TEST_REPORTS/html-reports/core $CIRCLE_TEST_REPORTS/html-reports/processor
-        - mkdir -p $CIRCLE_TEST_REPORTS/html-reports/demo/debug $CIRCLE_TEST_REPORTS/html-reports/demo/release
-        - mkdir -p $CIRCLE_ARTIFACTS/checkstyle/core $CIRCLE_ARTIFACTS/checkstyle/processor
-        - mkdir -p $CIRCLE_ARTIFACTS/lint
-        - mkdir -p $CIRCLE_ARTIFACTS/jars
-          # XML Test Reports
-        - cp core/build/test-results/TEST-*.xml $CIRCLE_TEST_REPORTS/xml-reports/core/
-        - cp processor/build/test-results/TEST-*.xml $CIRCLE_TEST_REPORTS/xml-reports/processor/
-        - cp demo/build/test-results/debug/TEST-*.xml $CIRCLE_TEST_REPORTS/xml-reports/demo/debug/
-        - cp demo/build/test-results/release/TEST-*.xml $CIRCLE_TEST_REPORTS/xml-reports/demo/release/
-          # HTML Test Reports
-        - cp -r core/build/reports/tests/* $CIRCLE_TEST_REPORTS/html-reports/core/
-        - cp -r processor/build/reports/tests/* $CIRCLE_TEST_REPORTS/html-reports/processor/
-        - cp -r demo/build/reports/tests/debug/* $CIRCLE_TEST_REPORTS/html-reports/demo/debug/
-        - cp -r demo/build/reports/tests/release/* $CIRCLE_TEST_REPORTS/html-reports/demo/release/
-          # Checkstyle
-        - cp core/build/reports/checkstyle/*.xml $CIRCLE_ARTIFACTS/checkstyle/core/
-        - cp processor/build/reports/checkstyle/*.xml $CIRCLE_ARTIFACTS/checkstyle/processor/
-          # Lint
-        - cp -r demo/build/outputs/lint* $CIRCLE_ARTIFACTS/lint/
-          # Jars
-        - cp -r core/build/libs/*.jar processor/build/libs/*.jar $CIRCLE_ARTIFACTS/jars
