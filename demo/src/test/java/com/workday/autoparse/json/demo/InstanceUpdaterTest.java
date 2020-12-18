@@ -361,7 +361,8 @@ public class InstanceUpdaterTest {
 
         TestObject$$JsonObjectParser.INSTANCE.updateInstanceFromMap(testObject, updates, CONTEXT);
 
-        assertEquals(testObject.myCollectionWithNullValues, CollectionUtils.newArrayList("one", null, "null"));
+        assertEquals("testObject.myCollectionWithNullValues", testObject.myCollectionWithNullValues,
+                     CollectionUtils.newArrayList("one", null, "null"));
     }
 
     @Test(expected = RuntimeException.class)

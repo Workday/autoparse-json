@@ -218,5 +218,24 @@
   "myNullCollection": null,
   "myDefaultCollection": null,
   "myCollectionWithSingleNullValue": [null],
-  "myCollectionWithNullValues": [null, "string", null, "null"]
+  "myCollectionWithNullValues": [null, "string", null, "null"],
+  "myStringMapWithSingleNullValue": {
+    "key1": null
+  },
+  "myStringMapWithNullValues": {
+    "key1": null,
+    "key2": "value2",
+    "key3": "null"
+  },
+  "myObjectMapWithNullValues": {
+    "key1": {
+      "myString": null
+    },
+    "key2": {
+      "myString": "value2"
+    },
+    "key3": {
+      "myString": "null"
+    }
+  }
 }
