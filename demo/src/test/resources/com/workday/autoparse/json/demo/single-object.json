@@ -135,6 +135,22 @@
       4
     ]
   ],
+  "myCollectionOfMapsOfStrings": [
+    {
+      "key1": "object 1",
+      "key2": "object 2"
+    }
+  ],
+  "myCollectionOfMapsOfObjects": [
+    {
+      "key1": {
+        "object": "testObject"
+      },
+      "key2": {
+        "object": "testObject"
+      }
+    }
+  ],
   "myCollectionOfSetsOfTestObjects": [
     [
       {

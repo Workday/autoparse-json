@@ -20,5 +20,5 @@ public interface CollectionInitializer {
     /**
      * Create a new instance of the particular {@link Collection}.
      */
-    Collection<?> newInstance();
+    Object newInstance();
 }

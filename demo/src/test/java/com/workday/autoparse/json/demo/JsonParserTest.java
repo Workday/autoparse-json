@@ -18,9 +18,11 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -188,6 +190,18 @@ public class JsonParserTest {
                      collectionOfCollections.get(0));
         assertEquals("testObject.collectionOfCollection[1]", CollectionUtils.newArrayList(3, 4),
                      collectionOfCollections.get(1));
+
+        List<Map<String, String>> collectionOfMapsOfStrings = testObject.myCollectionOfMapsOfStrings;
+        assertNotNull("testObject.collectionOfMapsOfStrings", collectionOfMapsOfStrings);
+        assertEquals("testObject.collectionOfMapsOfStrings.size()", 1, collectionOfMapsOfStrings.size());
+        assertEquals("testObject.collectionOfMapsOfStrings.get(0).size()", 2, collectionOfMapsOfStrings.get(0).size());
+        assertNotNull("testObject.collectionOfMapsOfStrings.get(0).get(\"key1\")", collectionOfMapsOfStrings.get(0).get("key1"));
+
+        List<Map<String, TestObject>> collectionOfMapsOfObjects = testObject.myCollectionOfMapsOfObjects;
+        assertNotNull("testObject.collectionOfMapsOfObjects", collectionOfMapsOfObjects);
+        assertEquals("testObject.collectionOfMapsOfObjects.size()", 1, collectionOfMapsOfObjects.size());
+        assertEquals("testObject.collectionOfMapsOfObjects.get(0).size()", 2, collectionOfMapsOfObjects.get(0).size());
+        assertNotNull("testObject.collectionOfMapsOfObjects.get(0).get(\"key1\")", collectionOfMapsOfObjects.get(0).get("key1"));
 
         List<Set<SimpleTestObject>> collectionOfCollectionUtilsOfTestObjects = testObject.mySetsOfTestObjects;
         assertNotNull("testObject.myCollectionUtilsOfTestObjects", collectionOfCollectionUtilsOfTestObjects);

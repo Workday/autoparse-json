@@ -239,6 +239,24 @@ class ValueAssignerFactory {
             nestedCollectionParameters.add(typeUtils.erasure(nextNestedClassType).toString());
         } while (metaTypes.isSubtypeErasure(nextNestedClassType, Collection.class));
 
+        if (metaTypes.isSubtypeErasure(nextNestedClassType, Map.class)) {
+            // Add the map to the nested types
+            nestedCollectionParameters.add(typeUtils.erasure(nextNestedClassType).toString());
+
+            try {
+                nextNestedClassType = metaTypes.getParameterType(nextNestedClassType, 1);
+            } catch (InvalidTypeException e) {
+                processingEnv.getMessager()
+                        .printMessage(Diagnostic.Kind.ERROR, e.getMessage(), element);
+                nextNestedClassType = (DeclaredType) processingEnv.getElementUtils()
+                        .getTypeElement(Object.class
+                                .getCanonicalName())
+                        .asType();
+            }
+            // Add the map value type to the nested types
+            nestedCollectionParameters.add(typeUtils.erasure(nextNestedClassType).toString());
+        }
+
         String collectionInitializer = null;
         try {
             collectionInitializer = initializers.findCollectionInitializer((DeclaredType) type);
@@ -246,23 +264,18 @@ class ValueAssignerFactory {
             processingEnv.getMessager()
                          .printMessage(Diagnostic.Kind.ERROR, e.getMessage(), element);
         }
-        String collectionInitializerPattern =
-                type.toString() + " %s" + " = " + collectionInitializer;
+        String collectionInitializerPattern = type.toString() + " %s" + " = " + collectionInitializer;
         // TODO: assert that parser type matches field type
         String parserInstance = getParserInstance(element, nextNestedClassType);
-
-        return new CollectionValueAssigner.Builder().withCollectionType(type.toString())
-                                                    .withCollectionTypeErasure(
-                                                            typeUtils.erasure(type).toString())
-                                                    .withAssignmentPattern(assignmentPattern)
-                                                    .withCollectionDeclarationPattern(
-                                                            collectionInitializerPattern)
-                                                    .withParser(parserInstance)
-                                                    .withNestedCollectionParameters(
-                                                            nestedCollectionParameters)
-                                                    .withPostCreateChildBlockWriter(
-                                                            postCreateChildBlockWriter)
-                                                    .build();
+        return new CollectionValueAssigner.Builder()
+                .withCollectionType(type.toString())
+                .withCollectionTypeErasure(typeUtils.erasure(type).toString())
+                .withAssignmentPattern(assignmentPattern)
+                .withCollectionDeclarationPattern(collectionInitializerPattern)
+                .withParser(parserInstance)
+                .withPostCreateChildBlockWriter(postCreateChildBlockWriter)
+                .withNestedCollectionParameters(nestedCollectionParameters)
+                .build();
     }
 
     private ValueAssigner getMapValueAssigner(Element element,
