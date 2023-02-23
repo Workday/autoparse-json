@@ -920,9 +920,10 @@ public class JsonParserUtils {
                     innerCollectionClasses.get(0));
             for (int i = 0; i < jsonArray.length(); i++) {
                 Object nextCollection = nextCollectionInitializer.newInstance();
-                List<Class<?>> nextInnerCollectionClasses = innerCollectionClasses.subList(1, innerCollectionClasses.size());
+                List<Class<?>> nextInnerCollectionClasses = innerCollectionClasses.subList(1,
+                        innerCollectionClasses.size());
 
-                if(jsonArray.optJSONArray(i) != null) {
+                if (jsonArray.optJSONArray(i) != null) {
                     convertJsonArrayToCollection(
                             jsonArray.optJSONArray(i),
                             nextCollection,
@@ -931,14 +932,13 @@ public class JsonParserUtils {
                             nextInnerCollectionClasses,
                             key,
                             context);
-                } else if(jsonArray.optJSONObject(i) != null) {
+                } else if (jsonArray.optJSONObject(i) != null) {
                     convertJsonObjectToMap(
                             jsonArray.getJSONObject(i),
                             ((Map) nextCollection),
                             itemType,
                             itemParser,
-                            key
-                    );
+                            key);
                 } else {
                     throw new IllegalStateException(
                             String.format(Locale.US,

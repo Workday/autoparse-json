@@ -204,9 +204,11 @@ class CollectionValueAssigner implements ValueAssigner {
     private void writeParameterList(JavaWriter writer) throws IOException {
         // TODO: make this a constant in the class
         if (state.nestedCollectionParameters.size() > 1) {
-            writer.emitStatement("java.util.List<Class<?>> parameterList = new " + "java.util.ArrayList<>()");
+            writer.emitStatement("java.util.List<Class<?>> parameterList = new "
+                    + "java.util.ArrayList<>()");
             for (int i = 0; i < state.nestedCollectionParameters.size() - 1; i++) {
-                writer.emitStatement("parameterList.add(%s.class)", writer.compressType(state.nestedCollectionParameters.get(i)));
+                writer.emitStatement("parameterList.add(%s.class)",
+                        writer.compressType(state.nestedCollectionParameters.get(i)));
             }
         } else {
             writer.emitStatement("java.util.List<Class<?>> parameterList = null");
@@ -223,13 +225,13 @@ class CollectionValueAssigner implements ValueAssigner {
         List<String> nestedCollectionParameters = state.nestedCollectionParameters;
         PostCreateChildBlockWriter postCreateChildBlockWriter = state.postCreateChildBlockWriter;
         String itemType = state.itemType;
-        return "collectionType: " + collectionType + "\n" +
-                "collectionTypeErasure: " + collectionTypeErasure + "\n" +
-                "assignmentPattern: " + assignmentPattern + "\n" +
-                "collectionDeclarationPattern: " + collectionDeclarationPattern + "\n" +
-                "parser: " + parser + "\n" +
-                "nestedCollectionParameters: " + nestedCollectionParameters + "\n" +
-                "postCreateChildBlockWriter: " + postCreateChildBlockWriter + "\n" +
-                "itemType: " + itemType + "\n";
+        return "collectionType: " + collectionType + "\n"
+                + "collectionTypeErasure: " + collectionTypeErasure + "\n"
+                + "assignmentPattern: " + assignmentPattern + "\n"
+                + "collectionDeclarationPattern: " + collectionDeclarationPattern + "\n"
+                + "parser: " + parser + "\n"
+                + "nestedCollectionParameters: " + nestedCollectionParameters + "\n"
+                + "postCreateChildBlockWriter: " + postCreateChildBlockWriter + "\n"
+                + "itemType: " + itemType + "\n";
     }
 }

@@ -48,7 +48,7 @@ public final class CollectionInitializerFactory {
             return HashMapInitializer.INSTANCE;
         } else if (LinkedHashMap.class.equals(clazz)) {
             return LinkedHashMapInitializer.INSTANCE;
-        }else {
+        } else {
             throw new IllegalArgumentException("Cannot initialize collection of type "
                                                        + clazz.getCanonicalName());
         }
