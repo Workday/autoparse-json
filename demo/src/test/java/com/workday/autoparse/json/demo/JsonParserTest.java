@@ -193,15 +193,41 @@ public class JsonParserTest {
 
         List<Map<String, String>> collectionOfMapsOfStrings = testObject.myCollectionOfMapsOfStrings;
         assertNotNull("testObject.collectionOfMapsOfStrings", collectionOfMapsOfStrings);
-        assertEquals("testObject.collectionOfMapsOfStrings.size()", 1, collectionOfMapsOfStrings.size());
+        assertEquals("testObject.collectionOfMapsOfStrings.size()", 3, collectionOfMapsOfStrings.size());
+
         assertEquals("testObject.collectionOfMapsOfStrings.get(0).size()", 2, collectionOfMapsOfStrings.get(0).size());
+        assertEquals("testObject.collectionOfMapsOfStrings.get(1).size()", 3, collectionOfMapsOfStrings.get(1).size());
+        assertEquals("testObject.collectionOfMapsOfStrings.get(2).size()", 2, collectionOfMapsOfStrings.get(2).size());
+
         assertNotNull("testObject.collectionOfMapsOfStrings.get(0).get(\"key1\")", collectionOfMapsOfStrings.get(0).get("key1"));
+        assertNotNull("testObject.collectionOfMapsOfStrings.get(0).get(\"key2\")", collectionOfMapsOfStrings.get(0).get("key2"));
+
+        assertNotNull("testObject.collectionOfMapsOfStrings.get(1).get(\"key1\")", collectionOfMapsOfStrings.get(1).get("key1"));
+        assertNotNull("testObject.collectionOfMapsOfStrings.get(1).get(\"key2\")", collectionOfMapsOfStrings.get(1).get("key2"));
+        assertNotNull("testObject.collectionOfMapsOfStrings.get(1).get(\"key3\")", collectionOfMapsOfStrings.get(1).get("key3"));
+
+        assertNull("testObject.collectionOfMapsOfStrings.get(2).get(\"key1\")", collectionOfMapsOfStrings.get(2).get("key1"));
+        assertNotNull("testObject.collectionOfMapsOfStrings.get(2).get(\"key2\")", collectionOfMapsOfStrings.get(2).get("key2"));
+        assertNotNull("testObject.collectionOfMapsOfStrings.get(2).get(\"key3\")", collectionOfMapsOfStrings.get(2).get("key3"));
 
         List<Map<String, TestObject>> collectionOfMapsOfObjects = testObject.myCollectionOfMapsOfObjects;
         assertNotNull("testObject.collectionOfMapsOfObjects", collectionOfMapsOfObjects);
-        assertEquals("testObject.collectionOfMapsOfObjects.size()", 1, collectionOfMapsOfObjects.size());
+        assertEquals("testObject.collectionOfMapsOfObjects.size()", 3, collectionOfMapsOfObjects.size());
+
         assertEquals("testObject.collectionOfMapsOfObjects.get(0).size()", 2, collectionOfMapsOfObjects.get(0).size());
+        assertEquals("testObject.collectionOfMapsOfObjects.get(1).size()", 3, collectionOfMapsOfObjects.get(1).size());
+        assertEquals("testObject.collectionOfMapsOfObjects.get(2).size()", 2, collectionOfMapsOfObjects.get(2).size());
+
         assertNotNull("testObject.collectionOfMapsOfObjects.get(0).get(\"key1\")", collectionOfMapsOfObjects.get(0).get("key1"));
+        assertNotNull("testObject.collectionOfMapsOfObjects.get(0).get(\"key2\")", collectionOfMapsOfObjects.get(0).get("key2"));
+
+        assertNotNull("testObject.collectionOfMapsOfObjects.get(1).get(\"key1\")", collectionOfMapsOfObjects.get(1).get("key1"));
+        assertNotNull("testObject.collectionOfMapsOfObjects.get(1).get(\"key2\")", collectionOfMapsOfObjects.get(1).get("key2"));
+        assertNotNull("testObject.collectionOfMapsOfObjects.get(1).get(\"key3\")", collectionOfMapsOfObjects.get(1).get("key3"));
+
+        assertNull("testObject.collectionOfMapsOfObjects.get(2).get(\"key1\")", collectionOfMapsOfObjects.get(2).get("key1"));
+        assertNotNull("testObject.collectionOfMapsOfObjects.get(2).get(\"key2\")", collectionOfMapsOfObjects.get(2).get("key2"));
+        assertNotNull("testObject.collectionOfMapsOfObjects.get(2).get(\"key3\")", collectionOfMapsOfObjects.get(2).get("key3"));
 
         List<Set<SimpleTestObject>> collectionOfCollectionUtilsOfTestObjects = testObject.mySetsOfTestObjects;
         assertNotNull("testObject.myCollectionUtilsOfTestObjects", collectionOfCollectionUtilsOfTestObjects);

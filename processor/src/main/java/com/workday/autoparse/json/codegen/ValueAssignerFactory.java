@@ -240,9 +240,6 @@ class ValueAssignerFactory {
         } while (metaTypes.isSubtypeErasure(nextNestedClassType, Collection.class));
 
         if (metaTypes.isSubtypeErasure(nextNestedClassType, Map.class)) {
-            // Add the map to the nested types
-            nestedCollectionParameters.add(typeUtils.erasure(nextNestedClassType).toString());
-
             try {
                 nextNestedClassType = metaTypes.getParameterType(nextNestedClassType, 1);
             } catch (InvalidTypeException e) {
