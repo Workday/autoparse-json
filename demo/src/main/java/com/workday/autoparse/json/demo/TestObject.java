@@ -122,6 +122,11 @@ public class TestObject extends AbstractTestObject {
     @JsonValue("myCollectionOfCollections")
     public List<List<Integer>> myCollectionOfCollections;
 
+    @JsonValue("myCollectionOfMapsOfStrings")
+    public List<Map<String, String>> myCollectionOfMapsOfStrings;
+    @JsonValue("myCollectionOfMapsOfObjects")
+    public List<Map<String, TestObject>> myCollectionOfMapsOfObjects;
+
     // Custom Objects
     @JsonValue("mySingularChild")
     public SimpleTestObject mySingularChild;

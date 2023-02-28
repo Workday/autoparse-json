@@ -138,6 +138,50 @@
       4
     ]
   ],
+  "myCollectionOfMapsOfStrings": [
+    {
+      "key1": "object 1",
+      "key2": "object 2"
+    },
+    {
+      "key1": "object 1",
+      "key2": "object 2",
+      "key3": "object 3"
+    },
+    {
+      "key2": "object2",
+      "key3": "object3"
+    }
+  ],
+  "myCollectionOfMapsOfObjects": [
+    {
+      "key1": {
+        "object": "testObject"
+      },
+      "key2": {
+        "object": "testObject"
+      }
+    },
+    {
+      "key1": {
+        "object": "testObject"
+      },
+      "key2": {
+        "object": "testObject"
+      },
+      "key3": {
+        "object": "testObject"
+      }
+    },
+    {
+      "key2": {
+        "object": "testObject"
+      },
+      "key3": {
+        "object": "testObject"
+      }
+    }
+  ],
   "myCollectionOfSetsOfTestObjects": [
     [
       {

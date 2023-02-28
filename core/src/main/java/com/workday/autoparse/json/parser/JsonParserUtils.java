@@ -768,7 +768,7 @@ public class JsonParserUtils {
                                           Collection collection,
                                           JsonObjectParser<T> itemParser,
                                           Class<T> itemType,
-                                          List<Class<? extends Collection>> innerCollectionClasses,
+                                          List<Class<?>> innerCollectionClasses,
                                           String key) throws IOException {
         if (handleNull(reader)) {
             return;
@@ -781,13 +781,29 @@ public class JsonParserUtils {
                     innerCollectionClasses.get(0));
             reader.beginArray();
             while (reader.hasNext()) {
-                Collection nextCollection = nextCollectionInitializer.newInstance();
-                parseJsonArray(reader,
-                               nextCollection,
-                               itemParser,
-                               itemType,
-                               innerCollectionClasses.subList(1, innerCollectionClasses.size()),
-                               key);
+                Object nextCollection = nextCollectionInitializer.newInstance();
+                if (nextCollection instanceof Collection) {
+                    parseJsonArray(reader,
+                            ((Collection) nextCollection),
+                            itemParser,
+                            itemType,
+                            innerCollectionClasses.subList(1, innerCollectionClasses.size()),
+                            key);
+                } else if (nextCollection instanceof Map) {
+                    parseCollectionMap(reader,
+                            ((Map) nextCollection),
+                            itemParser,
+                            itemType,
+                            key);
+                } else {
+                    throw new IllegalStateException(
+                            String.format(Locale.US,
+                                    "Could not convert value in array at \"%s\" to %s from %s.",
+                                    key,
+                                    itemType.getName(),
+                                    getClassName(nextCollection)));
+                }
+
                 collection.add(nextCollection);
             }
             reader.endArray();
@@ -795,6 +811,36 @@ public class JsonParserUtils {
             parseFlatJsonArray(reader, collection, itemParser, itemType, key);
         }
 
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static <T> void parseCollectionMap(JsonReader reader,
+                                     Map map,
+                                     JsonObjectParser<T> itemParser,
+                                     Class<T> itemType,
+                                     String key) throws IOException {
+        final String discriminationName =
+                ContextHolder.getContext().getSettings().getDiscriminationName();
+        assertType(reader, key, JsonToken.BEGIN_OBJECT);
+        reader.beginObject();
+        while (reader.hasNext()) {
+            T value;
+            String name = reader.nextName();
+            if (itemParser != null) {
+                reader.beginObject();
+                value = itemParser.parseJsonObject(null, reader, discriminationName, null);
+                reader.endObject();
+            } else {
+                Object o = parseNextValue(reader, true);
+                if (!itemType.isInstance(o)) {
+                    throwMapException(name, key, itemType, o);
+                }
+                value = cast(o);
+
+            }
+            map.put(name, value);
+        }
+        reader.endObject();
     }
 
     /**
@@ -824,8 +870,7 @@ public class JsonParserUtils {
                                                         Collection collection,
                                                         JsonObjectParser<T> itemParser,
                                                         Class<T> itemType,
-                                                        List<Class<? extends Collection>>
-                                                                innerCollectionClasses,
+                                                        List<Class<?>> innerCollectionClasses,
                                                         String key) throws IOException {
 
         convertJsonArrayToCollection(jsonArray,
@@ -861,11 +906,10 @@ public class JsonParserUtils {
     // collection. Assuming these are correct, all other operations are safe.
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static <T> void convertJsonArrayToCollection(JSONArray jsonArray,
-                                                        Collection collection,
+                                                        Object collection,
                                                         JsonObjectParser<T> itemParser,
                                                         Class<T> itemType,
-                                                        List<Class<? extends Collection>>
-                                                                innerCollectionClasses,
+                                                        List<Class<?>> innerCollectionClasses,
                                                         String key,
                                                         JsonParserContext context)
             throws IOException {
@@ -875,29 +919,43 @@ public class JsonParserUtils {
                     = CollectionInitializerFactory.getCollectionInitializerForClass(
                     innerCollectionClasses.get(0));
             for (int i = 0; i < jsonArray.length(); i++) {
-                Collection nextCollection;
-                JSONArray nextArray;
-                nextCollection = nextCollectionInitializer.newInstance();
-                nextArray = jsonArray.optJSONArray(i);
-                List<Class<? extends Collection>> nextInnerCollectionClasses =
-                        innerCollectionClasses.subList(1, innerCollectionClasses.size());
+                Object nextCollection = nextCollectionInitializer.newInstance();
+                List<Class<?>> nextInnerCollectionClasses = innerCollectionClasses.subList(1,
+                        innerCollectionClasses.size());
 
-                convertJsonArrayToCollection(nextArray,
-                                             nextCollection,
-                                             itemParser,
-                                             itemType,
-                                             nextInnerCollectionClasses,
-                                             key,
-                                             context);
-                collection.add(nextCollection);
+                if (jsonArray.optJSONArray(i) != null) {
+                    convertJsonArrayToCollection(
+                            jsonArray.optJSONArray(i),
+                            nextCollection,
+                            itemParser,
+                            itemType,
+                            nextInnerCollectionClasses,
+                            key,
+                            context);
+                } else if (jsonArray.optJSONObject(i) != null) {
+                    convertJsonObjectToMap(
+                            jsonArray.getJSONObject(i),
+                            ((Map) nextCollection),
+                            itemType,
+                            itemParser,
+                            key);
+                } else {
+                    throw new IllegalStateException(
+                            String.format(Locale.US,
+                                    "Could not convert value in array at \"%s\" to %s from %s.",
+                                    key,
+                                    jsonArray.opt(i).toString(),
+                                    getClassName(nextCollection)));
+                }
+                ((Collection) collection).add(nextCollection);
             }
         } else {
-            convertFlatJsonArrayToCollection(jsonArray,
-                                             collection,
-                                             itemParser,
-                                             itemType,
-                                             key,
-                                             context);
+                convertFlatJsonArrayToCollection(jsonArray,
+                        ((Collection) collection),
+                        itemParser,
+                        itemType,
+                        key,
+                        context);
         }
     }
 
