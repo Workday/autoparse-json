@@ -30,6 +30,8 @@ def getRepositoryPassword() {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            artifactId = POM_ARTIFACT_ID
+            from components.java
             pom {
                 name = POM_NAME
                 packaging = POM_PACKAGING
@@ -67,16 +69,17 @@ publishing {
             }
         }
     }
+}
 
-    artifacts {
-        archives sourcesJar
-        archives javadocJar
-    }
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
 
 signing {
     useGpgCmd()
     sign configurations.archives
+    sign publishing.publications.mavenJava
 }
 
 javadoc {
