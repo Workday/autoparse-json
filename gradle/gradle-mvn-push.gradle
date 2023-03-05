@@ -8,6 +8,9 @@ java {
     withJavadocJar()
     withSourcesJar()
 }
+def isReleaseBuild() {
+    return VERSION_NAME.contains("SNAPSHOT") == false
+}
 
 def getReleaseRepositoryUrl() {
     return hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
@@ -77,6 +80,7 @@ artifacts {
 }
 
 signing {
+    required { isReleaseBuild() }
     useGpgCmd()
     sign configurations.archives
     sign publishing.publications.mavenJava
