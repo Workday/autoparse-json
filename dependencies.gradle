@@ -1,5 +1,5 @@
 def versions = [
-        androidGradlePluginVersion: '3.6.0',
+        androidGradlePluginVersion: '7.4.1',
         robolectricVersion        : '4.0.2',
         guavaVersion              : '18.0',
         apacheCommonsVersion      : '3.3.2',
