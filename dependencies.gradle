@@ -1,14 +1,14 @@
 def versions = [
         androidGradlePluginVersion: '7.4.1',
-        robolectricVersion        : '4.0.2',
+        robolectricVersion        : '4.9.2',
         guavaVersion              : '18.0',
         apacheCommonsVersion      : '3.3.2',
 ]
 
 def buildConfig = [
-        compileSdkVersion: 28,
+        compileSdkVersion: 29,
         minSdkVersion    : 21,
-        targetSdkVersion : 28,
+        targetSdkVersion : 29,
         buildToolsVersion: '28.0.3',
         javaVersion      : '1.8',
 ]
