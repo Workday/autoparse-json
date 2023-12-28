@@ -167,6 +167,7 @@ public class TestObject extends AbstractTestObject {
     @JsonValue("myEmptyCollection")
     public Collection<String> myEmptyCollection;
 
+    //Nulls
     @JsonValue("myNullInt")
     public int myNullInt = 1;
 
@@ -184,6 +185,13 @@ public class TestObject extends AbstractTestObject {
     public Collection<String> myCollectionWithSingleNullValue;
     @JsonValue("myCollectionWithNullValues")
     public Collection<String> myCollectionWithNullValues;
+
+    @JsonValue("myStringMapWithSingleNullValue")
+    public Map<String, String> myStringMapWithSingleNullValue;
+    @JsonValue("myStringMapWithNullValues")
+    public Map<String, String> myStringMapWithNullValues;
+    @JsonValue("myObjectMapWithNullValues")
+    public Map<String, SimpleTestObject> myObjectMapWithNullValues;
 
     // Fields for setters
     public String stringFromSetter;
